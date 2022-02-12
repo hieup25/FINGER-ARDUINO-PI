@@ -131,7 +131,6 @@ void HttpServer::Impl::make_response(struct evhttp_request *request, info_t& inf
         sendJson(request, 200, info.res);
     }
 }
-
 void HttpServer::Impl::sendJson(struct evhttp_request *request, int status, json &j)
 {
     struct evbuffer *buffer;
@@ -168,6 +167,7 @@ void HttpServer::Impl::callback(struct evhttp_request *request, void *param)
             {
                 json okk;
                 okk["as"] = true;
+                okk["ass"]["a"] = "Asss";
                 info_response = {200, "ok", okk};
             }
             else if (server->_impl->readHeader(request) == "OPTIONS") //OPTIONS

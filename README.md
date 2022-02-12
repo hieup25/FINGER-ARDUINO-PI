@@ -10,7 +10,7 @@
 - Sử dụng
 +, apache2: file index.html chứa trong: /var/www/html
 +, hostname -I để lấy địa chỉ truy cập apache
-
+a
 - Cấu hình apache2
 *Thay đổi đường dẫn mặc định (document root)
 cd /etc/apache2/sites-available
