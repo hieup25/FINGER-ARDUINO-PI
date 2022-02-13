@@ -14,6 +14,8 @@
 #include <event2/tag.h>
 #include <event2/tag_compat.h>
 
+extern std::vector<int> g_check;
+
 struct HttpServer::Impl
 {    
     struct event_base* base = NULL;
@@ -165,10 +167,17 @@ void HttpServer::Impl::callback(struct evhttp_request *request, void *param)
             // std::cout << "pathstr: " << pathStr << std::endl;
             if (server->_impl->readHeader(request) == "GET") //GET
             {
-                json okk;
-                okk["as"] = true;
-                okk["ass"]["a"] = "Asss";
-                info_response = {200, "ok", okk};
+                json result;
+                std::map<int, int> m;
+                for (auto i = 0; i < g_check.size(); i++)
+                {
+                    if (g_check[i] == 0)
+                        m[i] = 0;
+                    else
+                        m[i] = 1;
+                }
+                result["data"] = m;
+                info_response = {200, "ok", result};
             }
             else if (server->_impl->readHeader(request) == "OPTIONS") //OPTIONS
             {

@@ -5,7 +5,7 @@
 #pragma once
 #include <iostream>
 #include <memory>
-
+#include "Uart.hpp"
 class Interface
 {
     private:
