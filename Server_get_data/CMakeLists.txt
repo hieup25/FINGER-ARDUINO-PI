@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 2.8.9)
 project (test)
 
 #add source
-file(GLOB SOURCES "src/*.cpp")
+file(GLOB SOURCES "src/*.cpp" "src/*.c")
 
 add_executable(test ${SOURCES})
 target_link_libraries(test -levent -lpthread)

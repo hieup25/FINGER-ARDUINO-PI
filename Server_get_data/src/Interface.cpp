@@ -11,7 +11,6 @@ struct Interface::Impl
     bool destroy;
     pthread_t id_thr;
     HttpServer http_server;
-    Uart uart;
     static void* serverThread(void* param)
     {
         auto p = static_cast<Impl*>(param);

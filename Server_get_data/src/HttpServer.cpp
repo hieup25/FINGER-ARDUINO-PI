@@ -13,11 +13,15 @@
 #include <event2/bufferevent_compat.h>
 #include <event2/tag.h>
 #include <event2/tag_compat.h>
+#include "../include/DataStudent.hpp"
 
-extern std::vector<int> g_check;
+std::vector<int> g_check;
 
 struct HttpServer::Impl
 {    
+    private:
+    DataStudent data_student;
+    public:
     struct event_base* base = NULL;
     struct evhttp* server = NULL;
     bool startWith(const char **src, const char *dst);
@@ -168,15 +172,22 @@ void HttpServer::Impl::callback(struct evhttp_request *request, void *param)
             if (server->_impl->readHeader(request) == "GET") //GET
             {
                 json result;
-                std::map<int, int> m;
-                for (auto i = 0; i < g_check.size(); i++)
-                {
-                    if (g_check[i] == 0)
-                        m[i] = 0;
-                    else
-                        m[i] = 1;
-                }
-                result["data"] = m;
+                auto check = server->_impl->data_student.GetAttendance();
+                // // std::vector<std::pair<int, std::string>>
+                // std::map<int, std::pair<int, std::string>> m;
+                // // std::map<int, int> m;
+                // for (auto i = 0; i < check.size(); i++)
+                // {
+                //     if (check[i].first == 0)
+                //     {
+                //         m[i] = {0, check[i].second};
+                //     }
+                //     else
+                //     {
+                //         m[i] = {1, check[i].second};
+                //     }
+                // }
+                result["data"] = check;
                 info_response = {200, "ok", result};
             }
             else if (server->_impl->readHeader(request) == "OPTIONS") //OPTIONS
